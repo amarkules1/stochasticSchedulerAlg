@@ -1,0 +1,7 @@
+import org.optaplanner.core.*;
+public class Main {
+    public static void main()
+    {
+
+    }
+}
