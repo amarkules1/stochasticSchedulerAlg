@@ -1,0 +1,69 @@
+{
+  "filters": {
+    "revapi": {
+      "filter": {
+        "elements": {
+          "exclude": [
+            "method .* org\\.optaplanner\\.benchmark\\.config.*::(?!(set|get)).*",
+            "parameter .* org\\.optaplanner\\.benchmark\\.config.*::(?!(set|get)).*"
+          ]
+        }
+      },
+      "java": {
+        "filter": {
+          "packages": {
+            "comment": "We don't want to check transitive classes, since we already check them in their own module.",
+            "regex": true,
+            "include": [
+              "org\\.optaplanner\\.benchmark\\.api.*",
+              "org\\.optaplanner\\.benchmark\\.config.*"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "ignores": {
+    "revapi": {
+      "_comment": "Changes between 7.11.0.Final and the current branch. These changes are desired and thus ignored.",
+      "ignore": [
+        {
+          "code": "java.field.enumConstantOrderChanged",
+          "old": "field org.optaplanner.benchmark.config.blueprint.SolverBenchmarkBluePrintType.EVERY_CONSTRUCTION_HEURISTIC_TYPE",
+          "new": "field org.optaplanner.benchmark.config.blueprint.SolverBenchmarkBluePrintType.EVERY_CONSTRUCTION_HEURISTIC_TYPE",
+          "oldOrdinal": "0",
+          "newOrdinal": "1",
+          "package": "org.optaplanner.benchmark.config.blueprint",
+          "classSimpleName": "SolverBenchmarkBluePrintType",
+          "fieldName": "EVERY_CONSTRUCTION_HEURISTIC_TYPE",
+          "elementKind": "enumConstant",
+          "justification": "The new enum value is logically before the existing ones."
+        },
+        {
+        "code": "java.field.enumConstantOrderChanged",
+        "old": "field org.optaplanner.benchmark.config.blueprint.SolverBenchmarkBluePrintType.EVERY_CONSTRUCTION_HEURISTIC_TYPE_WITH_EVERY_LOCAL_SEARCH_TYPE",
+        "new": "field org.optaplanner.benchmark.config.blueprint.SolverBenchmarkBluePrintType.EVERY_CONSTRUCTION_HEURISTIC_TYPE_WITH_EVERY_LOCAL_SEARCH_TYPE",
+        "oldOrdinal": "2",
+        "newOrdinal": "3",
+        "package": "org.optaplanner.benchmark.config.blueprint",
+        "classSimpleName": "SolverBenchmarkBluePrintType",
+        "fieldName": "EVERY_CONSTRUCTION_HEURISTIC_TYPE_WITH_EVERY_LOCAL_SEARCH_TYPE",
+        "elementKind": "enumConstant",
+        "justification": "The new enum value is logically before the existing ones."
+        },
+        {
+        "code": "java.field.enumConstantOrderChanged",
+        "old": "field org.optaplanner.benchmark.config.blueprint.SolverBenchmarkBluePrintType.EVERY_LOCAL_SEARCH_TYPE",
+        "new": "field org.optaplanner.benchmark.config.blueprint.SolverBenchmarkBluePrintType.EVERY_LOCAL_SEARCH_TYPE",
+        "oldOrdinal": "1",
+        "newOrdinal": "2",
+        "package": "org.optaplanner.benchmark.config.blueprint",
+        "classSimpleName": "SolverBenchmarkBluePrintType",
+        "fieldName": "EVERY_LOCAL_SEARCH_TYPE",
+        "elementKind": "enumConstant",
+        "justification": "The new enum value is logically before the existing ones."
+        }
+      ]
+    }
+  }
+}
