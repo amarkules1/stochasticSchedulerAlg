@@ -1,11 +1,16 @@
 package main.java.CohortDataClasses;
 
+import java.util.Date;
+
 public class Section {
 
 	private String name;
 	private Integer seats;
 	private Integer enrolled;
 	private String sections;
+	private Date startTime;
+	private Date endTime;
+	private String daysOfWeek;
 	
 	public Section() {
 		// TODO Auto-generated constructor stub
@@ -41,6 +46,30 @@ public class Section {
 
 	public void setSections(String sections) {
 		this.sections = sections;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getDaysOfWeek() {
+		return daysOfWeek;
+	}
+
+	public void setDaysOfWeek(String daysOfWeek) {
+		this.daysOfWeek = daysOfWeek;
 	}
 
 }
