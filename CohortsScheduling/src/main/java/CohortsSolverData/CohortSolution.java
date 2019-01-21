@@ -1,3 +1,4 @@
+package CohortsSolverData;
 import CohortDataClasses.Cohort;
 import CohortDataClasses.Course;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
