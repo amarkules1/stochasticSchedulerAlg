@@ -1,4 +1,4 @@
-package main.java.CohortDataClasses;
+package CohortDataClasses;
 
 public class Section {
 

@@ -1,9 +1,11 @@
-package main.java.CohortDataClasses;
+package CohortDataClasses;
 
+import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
+
+import java.io.Serializable;
 import java.util.List;
-
-public class Course {
-
+public class Course implements Serializable {
+    @ValueRangeProvider(id = "courseSections")
 	List<Section> sections;
 	String name;
 	List<Cohort> cohortsNeedClass;
