@@ -3,11 +3,14 @@ package CohortDataClasses;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
+@PlanningEntity
 public class CohortSectionAssignment {
 
+	
 	private Cohort myCohort;
 	
 	@PlanningVariable(valueRangeProviderRefs = {"courseSection"}, nullable = true)

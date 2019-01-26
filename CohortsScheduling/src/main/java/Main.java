@@ -1,9 +1,19 @@
+import java.util.List;
+
 import org.optaplanner.core.api.solver.*;
+
+import CohortDataClasses.Cohort;
+import CohortDataClasses.Course;
 import CohortsSolverData.CohortSolution;
 public class Main {
     public static void main()
     {
-    	CohortSolution solutions[] = new CohortSolution[20];
+    	//Jake add functions to assign these
+    	List<Cohort> cohorts= null;
+    	List<Course> courses = null;
+    	//Alex Write init function
+    	CohortSolution solutions[] = initializeSolution(20, cohorts, courses);
+    	
     	SolverFactory<CohortSolution> factory = SolverFactory.createFromXmlResource("SolverConfig.xml");
     	Solver<CohortSolution> solver = factory.buildSolver();
     	
@@ -15,4 +25,9 @@ public class Main {
     	
     	
     }
+
+	private static CohortSolution[] initializeSolution(int count, List<Cohort> cohorts, List<Course> courses) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
