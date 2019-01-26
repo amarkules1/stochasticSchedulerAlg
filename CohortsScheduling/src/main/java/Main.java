@@ -1,19 +1,24 @@
 import java.util.List;
 
 import org.optaplanner.core.api.solver.*;
-
-import CohortDataClasses.Cohort;
-import CohortDataClasses.Course;
-import CohortsSolverData.CohortSolution;
+import CohortsSolverData.CohortSolution; 
+import CohortDataClasses.*;
+import java.io.FileNotFoundException;
+import java.util.*;
 public class Main {
-    public static void main()
+	
+    public static void main() throws FileNotFoundException
     {
-    	//Jake add functions to assign these
-    	List<Cohort> cohorts= null;
-    	List<Course> courses = null;
-    	//Alex Write init function
-    	CohortSolution solutions[] = initializeSolution(20, cohorts, courses);
+
+    	FileReader fileReader = new FileReader();
+    	List<Course> courseList = new ArrayList<Course>(); 
+    	List<Cohort> cohortList = new ArrayList<Cohort>();
     	
+    	courseList = fileReader.readClassFile("fileName", courseList); 
+    	cohortList = fileReader.readCohortFile("fileName", cohortList);
+    	//Alex Write init function
+    	CohortSolution solutions[] = initializeSolution(20, cohortList, courseList);
+
     	SolverFactory<CohortSolution> factory = SolverFactory.createFromXmlResource("SolverConfig.xml");
     	Solver<CohortSolution> solver = factory.buildSolver();
     	
