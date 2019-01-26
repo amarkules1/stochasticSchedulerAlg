@@ -5,12 +5,15 @@ import java.util.List;
 
 import CohortDataClasses.Cohort;
 import CohortDataClasses.Section;
+import CohortsSolverData.CohortSolution;
 
 public class HardScoringFunctions {
-    public static int scoreSchedule(Cohort s){
+    public static int scoreSchedule(CohortSolution solution){
         int score = 0;
+        for(Cohort s:solution.getCohorts()) {
         Section[] sects = s.getEnrolledClasses();
         score += classConflictsForCohort(sects);
+        }
         return score;
     }
 
