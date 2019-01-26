@@ -7,10 +7,10 @@ import CohortsSolverData.CohortSolution;
 public class cohortScoring implements EasyScoreCalculator {
 
 
-    public HardSoftScore calculateScore(CohortSolution o) {
+    public HardSoftScore calculateScore(Object o) {
         return HardSoftScore.valueOf(
-                HardScoringFunctions.scoreSchedule((Cohort)o),
-                SoftScoringFunctions.scoreSchedule((Cohort)o)
+                HardScoringFunctions.scoreSchedule((CohortSolution)o),
+                SoftScoringFunctions.scoreSchedule((CohortSolution)o)
         );
     }
 }
