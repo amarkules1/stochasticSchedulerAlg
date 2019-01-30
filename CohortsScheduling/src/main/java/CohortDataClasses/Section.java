@@ -7,10 +7,12 @@ public class Section {
 	private String name;
 	private Integer seats;
 	private Integer enrolled;
-	private String sections;
+	private String sectionId;
+	//start time and end time must be on the same day for ALL section objects
 	private Date startTime;
 	private Date endTime;
 	private String daysOfWeek;
+	private int subSectionId;
 	
 	public Section() {
 		// TODO Auto-generated constructor stub
@@ -40,12 +42,12 @@ public class Section {
 		this.enrolled = enrolled;
 	}
 
-	public String getSections() {
-		return sections;
+	public String getSectionId() {
+		return sectionId;
 	}
 
-	public void setSections(String sections) {
-		this.sections = sections;
+	public void setSectionId(String sectionId) {
+		this.sectionId = sectionId;
 	}
 
 	public Date getStartTime() {
@@ -70,6 +72,14 @@ public class Section {
 
 	public void setDaysOfWeek(String daysOfWeek) {
 		this.daysOfWeek = daysOfWeek;
+	}
+
+	public int getSubSectionId() {
+		return subSectionId;
+	}
+
+	public void setSubSectionId(int subSectionId) {
+		this.subSectionId = subSectionId;
 	}
 
 }

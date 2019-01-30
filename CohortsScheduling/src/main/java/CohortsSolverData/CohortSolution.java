@@ -26,7 +26,19 @@ public class CohortSolution {
     }
 
     @PlanningEntityCollectionProperty
-    public List<CohortSectionAssignment> getCohorts(){
+    public List<CohortSectionAssignment> getAssignments(){
         return assignments;
+    }
+    
+    public void setAssignments(List<CohortSectionAssignment> assignments) {
+    	this.assignments = assignments;
+    }
+    
+    public void setCourses(List<Course> courses) {
+    	this.courses = courses;
+    }
+    
+    public void setScore(HardSoftScore score) {
+    	this.score = score;
     }
 }
