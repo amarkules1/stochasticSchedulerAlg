@@ -17,7 +17,7 @@ public class FileReader {
 		File file = new File(fileName);
 		Scanner scan = new Scanner(file); 
 		String line;
-		String[] field = new String[7];
+		String[] field = new String[14];
 		Course course = new Course();
 		List<Section> sections = new ArrayList<Section>();
 		Section section = new Section();
@@ -27,9 +27,13 @@ public class FileReader {
 		line = scan.nextLine();
 		field = line.split(",");
 		
-		course.setName(field[0]);
+		course.setName(field[4]); 
+		
+		
+		section.setSeats(Integer.parseInt(field[13]));
 		section.setName(field[1]);
-		section.setSeats(Integer.parseInt(field[6])); 
+		section.setCrn(field[2]);
+		
 		sections.add(section);
 				
 		while(scan.hasNext()) {
@@ -61,11 +65,11 @@ public class FileReader {
 		String line; 
 		String[] field = new String[7];
 		Cohort cohort = new Cohort();
-		Course[] requirements = new Course[7];
+		Course[] requirements = new Course[6];
 		Course requirement = new Course();
 		int index=0;
 		
-		scan.nextLine();
+		scan.nextLine();		//skip title line
 		
 		line = scan.nextLine();
 		field = line.split(",");
