@@ -1,5 +1,6 @@
 package CohortsSolverData;
 import CohortDataClasses.Cohort;
+import CohortDataClasses.CohortSectionAssignment;
 import CohortDataClasses.Course;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
@@ -10,8 +11,7 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import java.util.List;
 @PlanningSolution
 public class CohortSolution {
-    private int cohortCount;
-    private List<Cohort> cohorts;
+    private List<CohortSectionAssignment> assignments;
     private List<Course> courses;
     private HardSoftScore score;
 
@@ -26,7 +26,19 @@ public class CohortSolution {
     }
 
     @PlanningEntityCollectionProperty
-    public List<Cohort> getCohorts(){
-        return cohorts;
+    public List<CohortSectionAssignment> getAssignments(){
+        return assignments;
+    }
+    
+    public void setAssignments(List<CohortSectionAssignment> assignments) {
+    	this.assignments = assignments;
+    }
+    
+    public void setCourses(List<Course> courses) {
+    	this.courses = courses;
+    }
+    
+    public void setScore(HardSoftScore score) {
+    	this.score = score;
     }
 }

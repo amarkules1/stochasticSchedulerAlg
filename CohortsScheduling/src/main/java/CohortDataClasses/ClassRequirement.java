@@ -5,6 +5,7 @@ public class ClassRequirement {
 	private String className;
 	private String sectionsAllowed;
 	private Integer seatsNeeded;
+	private String cohortName;
 	
 	public ClassRequirement() {
 		// TODO Auto-generated constructor stub
@@ -32,6 +33,14 @@ public class ClassRequirement {
 
 	public void setSeatsNeeded(Integer seatsNeeded) {
 		this.seatsNeeded = seatsNeeded;
+	}
+
+	public String getCohortName() {
+		return cohortName;
+	}
+
+	public void setCohortName(String cohortName) {
+		this.cohortName = cohortName;
 	}
 
 }

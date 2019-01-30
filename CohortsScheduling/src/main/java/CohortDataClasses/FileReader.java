@@ -17,37 +17,75 @@ public class FileReader {
 		File file = new File(fileName);
 		Scanner scan = new Scanner(file); 
 		String line;
-		String[] field = new String[7];
+		String[] tempTime = new String[2];
+		String[] field = new String[14];
 		Course course = new Course();
 		List<Section> sections = new ArrayList<Section>();
 		Section section = new Section();
 		
-		scan.nextLine();						//skip title line
-		
+		scan.nextLine();	//skip title line
 		line = scan.nextLine();
 		field = line.split(",");
-		
-		course.setName(field[0]);
-		section.setName(field[1]);
-		section.setSeats(Integer.parseInt(field[6])); 
-		sections.add(section);
+		course.setName(field[4]); 
+		section.setSectionId(field[1]);
+		section.setCrn(Integer.parseInt(field[2]));
+		section.setSection(Integer.parseInt(field[3])); 
+		section.setName(field[4]);
+		section.setLink(field[5]); 
+		section.setDaysOfWeek(field[8]);
+		tempTime = field[9].split(" - "); 
+		//start time
+		//end time
+		section.setBuilding(field[10]);
+		section.setRoom(field[11]);
+		section.setInstructor(field[12]);
+		section.setSeats(Integer.parseInt(field[13]));
+
+		//add initialized section to sections list
+		sections.add(section); 
 				
 		while(scan.hasNext()) {
 			line = scan.nextLine();
 			field = line.split(","); 
 			
-			if(course.getName().compareTo(field[0])==0) {
-				section.setName(field[1]); 
-				section.setSeats(Integer.parseInt(field[6]));
-				sections.add(section);
+			//check to see if same course, if so add to sections list
+			if(course.getName().compareTo(field[0])==0) { 
+				section.setSectionId(field[1]);
+				section.setCrn(Integer.parseInt(field[2]));
+				section.setSection(Integer.parseInt(field[3])); 
+				section.setName(field[4]);
+				section.setLink(field[5]); 
+				section.setDaysOfWeek(field[8]); 
+				tempTime = field[9].split(" - "); 
+				//start time
+				//end time
+				section.setBuilding(field[10]);
+				section.setRoom(field[11]);
+				section.setInstructor(field[12]);
+				section.setSeats(Integer.parseInt(field[13]));
+				//add initialized section to sections list
+				sections.add(section); 
 				
 			}
-			else {
+			//if not the same course, create new course and add finished course to course list
+			else { 
 				course.setSections(sections);
 				courseList.add(course);
-				course.setName((field[0]));
-				section.setName(field[1]); 
-				section.setSeats(Integer.parseInt(field[6]));
+				course.setName((field[4]));
+				section.setSectionId(field[1]);
+				section.setCrn(Integer.parseInt(field[2]));
+				section.setSection(Integer.parseInt(field[3])); 
+				section.setName(field[4]);
+				section.setLink(field[5]); 
+				tempTime = field[9].split(" - "); 
+				//start time
+				//end time
+				section.setDaysOfWeek(field[8]); 
+				section.setBuilding(field[10]);
+				section.setRoom(field[11]);
+				section.setInstructor(field[12]);
+				section.setSeats(Integer.parseInt(field[13]));
+				//make new sections list for new course object
 				sections = new ArrayList<Section>(); 	
 			}
 			
@@ -61,11 +99,11 @@ public class FileReader {
 		String line; 
 		String[] field = new String[7];
 		Cohort cohort = new Cohort();
-		Course[] requirements = new Course[7];
+		Course[] requirements = new Course[6];
 		Course requirement = new Course();
 		int index=0;
 		
-		scan.nextLine();
+		scan.nextLine();		//skip title line
 		
 		line = scan.nextLine();
 		field = line.split(",");
