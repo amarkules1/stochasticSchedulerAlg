@@ -12,9 +12,12 @@ public class Cohort {
 	private List<ClassRequirement> requirements;
 
     private String name;
+    
+    List<Section> classAssignments;
 
 	public Cohort() {
-		requirements = new ArrayList<ClassRequirement>();
+		requirements = new ArrayList<>();
+		classAssignments = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -51,5 +54,13 @@ public class Cohort {
 			this.requirements.remove(index);
 			return true;
 		}
+	}
+
+	public List<Section> getClassAssignments() {
+		return classAssignments;
+	}
+
+	public void setClassAssignments(List<Section> classAssignments) {
+		this.classAssignments = classAssignments;
 	}
 }
