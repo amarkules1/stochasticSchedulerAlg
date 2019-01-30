@@ -3,15 +3,15 @@ package CohortDataClasses;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 public class Course implements Serializable {
-    @ValueRangeProvider(id = "courseSections")
 	List<Section> sections;
 	String name;
-	List<Cohort> cohortsNeedClass;
+	int unitSize;
 	
 	public Course() {
-		// TODO Auto-generated constructor stub
+		this.sections = new ArrayList<Section>();
 	}
 
 	public List<Section> getSections() {
@@ -30,12 +30,12 @@ public class Course implements Serializable {
 		this.name = name;
 	}
 
-	public List<Cohort> getCohortsNeedClass() {
-		return cohortsNeedClass;
+	public int getUnitSize() {
+		return unitSize;
 	}
 
-	public void setCohortsNeedClass(List<Cohort> cohortsNeedClass) {
-		this.cohortsNeedClass = cohortsNeedClass;
+	public void setUnitSize(int unitSize) {
+		this.unitSize = unitSize;
 	}
 
 }
