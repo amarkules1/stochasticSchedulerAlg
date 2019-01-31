@@ -1,8 +1,13 @@
 package CohortScoring;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import CohortDataClasses.Cohort;
+import CohortDataClasses.CohortSectionAssignment;
+import CohortDataClasses.Section;
 import CohortsSolverData.CohortSolution;
 
 public class SoftScoringFunctions {
@@ -37,8 +42,26 @@ public class SoftScoringFunctions {
 	}
 
 	private static List<Cohort> putAssignmentsInCohorts(CohortSolution solution) {
-		//this method Creates a new Cohort object for each cohort and adds the sections 
-		//for each CohortSectionAssignment which has that that cohort
-		return null;
+		Map<String,List<Section>> sectMap = new HashMap<>();
+		for(CohortSectionAssignment csa: solution.getAssignments()) {
+			if(sectMap.containsKey(csa.getMyCohort().getName())) {
+				List<Section> temp = sectMap.get(csa.getMyCohort().getName());
+				temp.add(csa.getAssignment());
+				sectMap.put(csa.getMyCohort().getName(),temp);
+			}else {
+				List<Section> temp = new ArrayList<>();
+				temp.add(csa.getAssignment());
+				sectMap.put(csa.getMyCohort().getName(), temp);
+			}
+		}
+		List<String> cohortNames = new ArrayList<String>(sectMap.keySet());
+		List<Cohort> cohorts = new ArrayList<>();
+		for(String name:cohortNames) {
+			Cohort coh = new Cohort();
+			coh.setName(name);
+			coh.setClassAssignments(sectMap.get(name));
+			cohorts.add(coh);
+		}
+		return cohorts;
 	}
 }
