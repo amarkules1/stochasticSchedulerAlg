@@ -19,6 +19,7 @@ public class CohortSectionAssignment {
 	//this gets set before optaplanner and does not change
 	//represents alpha part of section code i.e. if this is "HE" then "HE1 is an allowable section
 	private String sectionCode;
+	private Integer seatsNeeded;
 	
 	public CohortSectionAssignment(Course course, Section assignment, Cohort cohort) {
 		this.myCohort = cohort;
@@ -84,5 +85,13 @@ public class CohortSectionAssignment {
 
 	public void setSectionCode(String sectionCode) {
 		this.sectionCode = sectionCode;
+	}
+
+	public Integer getSeatsNeeded() {
+		return seatsNeeded;
+	}
+
+	public void setSeatsNeeded(Integer seatsNeeded) {
+		this.seatsNeeded = seatsNeeded;
 	}
 }

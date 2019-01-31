@@ -25,17 +25,79 @@ public class HardScoringFunctions {
     }
 
     private static int calculateOverEnrolledScore(List<Course> courses) {
-		//this method adds a point for every 5 students over the limit for each section
-    	//Ex Sect1:0 students over, Sect2:1 student over, Sect3:9 students over
-    	//Sect1 add 0 pt, Sect2 add 1 pt, sect3 add 2 pt
-		return 0;
+		int score = 0;
+		for(Course course:courses) {
+			for(Section s : course.getSections()) {
+				if(s.getEnrolled()>s.getSeats()) {
+					score += (s.getEnrolled() - s.getSeats())/5;
+				}
+			}
+		}
+		return score;
 	}
 
 	private static List<Course> addEnrollmentsToCourses(CohortSolution solution) {
-		//this method creates a new Course object for each course and increments 
-    	//the enrolled field for each new Section object of that course
-    	//as indicated by the CohortSectionAssignment List
-		return null;
+		List<Section> allSectUsed = new ArrayList<>();
+		for(CohortSectionAssignment csa : solution.getAssignments()) {
+			int index = indexOfSect(allSectUsed,csa.getAssignment());
+			if(index>=0) {
+				allSectUsed.get(index).setEnrolled(allSectUsed.get(index).getEnrolled()+csa.getSeatsNeeded());
+			}
+			else {
+				Section toAdd = new Section();
+				toAdd.setBuilding(csa.getAssignment().getBuilding());
+				toAdd.setCrn(csa.getAssignment().getCrn());
+				toAdd.setDaysOfWeek(csa.getAssignment().getDaysOfWeek());
+				toAdd.setEndTime(csa.getAssignment().getEndTime());
+				toAdd.setEnrolled(csa.getAssignment().getEnrolled()+csa.getSeatsNeeded());
+				toAdd.setInstructor(csa.getAssignment().getInstructor());
+				toAdd.setLink(csa.getAssignment().getLink());
+				toAdd.setName(csa.getAssignment().getName());
+				toAdd.setRoom(csa.getAssignment().getRoom());
+				toAdd.setSeats(csa.getAssignment().getSeats());
+				toAdd.setSection(csa.getAssignment().getSection());
+				toAdd.setSectionId(csa.getAssignment().getSectionId());
+				toAdd.setStartTime(csa.getAssignment().getStartTime());
+				toAdd.setSubSectionId(csa.getAssignment().getSubSectionId());
+				allSectUsed.add(toAdd);
+			}
+		}
+		List<Course> courses = new ArrayList<>();
+		for(Section s: allSectUsed) {
+			int index = indexOfCourse(courses,s.getName());
+			if(index>=0) {
+				List<Section> temp = courses.get(index).getSections();
+				temp.add(s);
+				courses.get(index).setSections(temp);
+			}else {
+				List<Section> temp = new ArrayList<>();
+				temp.add(s);
+				Course toAdd = new Course();
+				toAdd.setName(s.getName());
+				toAdd.setSections(temp);
+				courses.add(toAdd);
+			}
+		}
+		
+		return courses;
+	}
+	
+	public static int indexOfCourse(List<Course> courses, String name) {
+		for(Course c : courses) {
+			if(c.getName().equals(name)) {
+				return courses.indexOf(c);
+			}
+		}
+		return -1;
+	}
+	
+	public static int indexOfSect(List<Section> list, Section sect) {
+		for(Section s:list) {
+			if(s.getName().equals(sect.getName())&&s.getCrn()==(sect.getCrn())) {
+				return list.indexOf(s);
+			}
+		}
+		return -1;
 	}
 
 	private static List<Cohort> putAssignmentsInCohorts(CohortSolution solution) {

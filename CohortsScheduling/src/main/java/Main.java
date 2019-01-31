@@ -80,6 +80,7 @@ public class Main {
 					toAdd.setMyCohort(coh);
 					toAdd.setMyCourse(courses.get(courseIndex));
 					toAdd.setSectionCode(req.getSectionsAllowed());
+					toAdd.setSeatsNeeded(req.getSeatsNeeded());
 				}
 			}
 		}
