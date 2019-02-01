@@ -15,11 +15,12 @@
       <secondsSpentLimit>290</secondsSpentLimit>
   	</termination>
   	<acceptor>
-  		<simulatedAnnealingStartingTemperature>20hard/100soft</simulatedAnnealingStartingTemperature>
-  	</acceptor>
-  	<forager>
-  		<acceptedCountLimit>4</acceptedCountLimit>
-  	</forager>
+      <lateAcceptanceSize>400</lateAcceptanceSize>
+      <entityTabuSize>5</entityTabuSize>
+    </acceptor>
+    <forager>
+      <acceptedCountLimit>1</acceptedCountLimit>
+    </forager>
   </localSearch>
   
 </solver>
