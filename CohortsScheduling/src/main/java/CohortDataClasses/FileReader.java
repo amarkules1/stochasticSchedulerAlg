@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,9 +19,9 @@ public class FileReader {
 		File file = new File(fileName);
 		Scanner scan = new Scanner(file); 
 		String line;
-		String[] tempTime = new String[2];
+		
 		String[] field = new String[14];
-		String tempDay = "01/01/2019";
+		
 		Course course = new Course();
 		List<Section> sections = new ArrayList<Section>();
 		Section section = new Section(); 
@@ -36,10 +37,7 @@ public class FileReader {
 		section.setName(field[4]);
 		section.setLink(field[5]); 
 		section.setDaysOfWeek(field[8]);
-		tempTime = field[9].split(" - ");  
-		
-		//start time
-		//end time
+		setTimes(field, section);
 		section.setBuilding(field[10]);
 		section.setRoom(field[11]);
 		section.setInstructor(field[12]);
@@ -59,12 +57,7 @@ public class FileReader {
 				section.setName(field[4]);
 				section.setLink(field[5]); 
 				section.setDaysOfWeek(field[8]); 
-				tempTime = field[9].split(" - "); 
-				//start time
-				SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy HH:mm"); 
-				section.setStartTime(format.parse(tempDay+ " " + tempTime[0]));
-				//end time
-				section.setEndTime(format.parse(tempDay+ " "+ tempTime[1]));
+				setTimes(field, section);			
 				section.setBuilding(field[10]);
 				section.setRoom(field[11]);
 				section.setInstructor(field[12]);
@@ -82,12 +75,7 @@ public class FileReader {
 				section.setCrn(Integer.parseInt(field[2]));
 				section.setName(field[4]);
 				section.setLink(field[5]); 
-				tempTime = field[9].split(" - "); 
-				//start time
-				SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy HH:mm"); 
-				section.setStartTime(format.parse(tempDay+ " " + tempTime[0]));
-				//end time
-				section.setEndTime(format.parse(tempDay+ " "+ tempTime[1]));
+				setTimes(field, section);
 				section.setDaysOfWeek(field[8]); 
 				section.setBuilding(field[10]);
 				section.setRoom(field[11]);
@@ -139,5 +127,23 @@ public class FileReader {
 		}
 		scan.close();
 		return cohortList;
+	}
+	public static  void setTimes(String[] field, Section section) {
+		String[] tempTime = new String[2];
+		String[]tempTime2 = new String[2];
+		int hour;
+		int minute;
+		
+		tempTime = field[9].split(" - ");  
+		tempTime2 = tempTime[0].split(":");
+		hour = Integer.parseInt(tempTime2[0]);
+		minute = Integer.parseInt(tempTime2[1]);		
+		//start time
+		section.setStartTime(LocalTime.of(hour, minute));
+		//end time
+		tempTime2 = tempTime[1].split(":");
+		hour = Integer.parseInt(tempTime2[0]);
+		minute = Integer.parseInt(tempTime2[1]); 
+		section.setEndTime(LocalTime.of(hour, minute));
 	}
 }
