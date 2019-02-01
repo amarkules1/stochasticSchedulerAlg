@@ -18,8 +18,8 @@ public class Main {
     		//each class requirement should have all fields initialized
     		List<Cohort> cohortList = new ArrayList<Cohort>();
 
-    		courseList = fileReader.readClassFile("fileName", courseList); 
-    		cohortList = fileReader.readCohortFile("fileName", cohortList);
+    		courseList = fileReader.readClassFile("CEAS_Course_Offerings_Fall_2018.csv", courseList); 
+    		cohortList = fileReader.readCohortFile("cohortReqs.csv", cohortList);
     		//verifies that a course exists for each ClassRequirement
     		verifyClassesExist(courseList, cohortList);
     		//Alex Write init function
