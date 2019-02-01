@@ -8,7 +8,7 @@ public class cohortScoring implements EasyScoreCalculator {
 
 
     public HardSoftScore calculateScore(Object o) {
-        return HardSoftScore.valueOf(
+        return HardSoftScore.of(
                 HardScoringFunctions.scoreSchedule((CohortSolution)o),
                 SoftScoringFunctions.scoreSchedule((CohortSolution)o)
         );

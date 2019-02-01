@@ -10,7 +10,7 @@ import CohortDataClasses.CohortSectionAssignment;
 import CohortDataClasses.Course;
 import CohortDataClasses.Section;
 import CohortsSolverData.CohortSolution;
-
+import CohortDataClasses.CohortSectionAssignment;
 public class HardScoringFunctions {
     public static int scoreSchedule(CohortSolution solution){
         int score = 0;
@@ -70,9 +70,9 @@ public class HardScoringFunctions {
     	for(int i = 0; i < sects.length;i++) {
     		for(int j = (1+i); j < sects.length;j++) {
     			if(sameDay(sects[i].getDaysOfWeek(),sects[j].getDaysOfWeek())) {
-    				if(sects[i].getEndTime().before(sects[j].getEndTime())&&sects[i].getEndTime().after(sects[j].getStartTime())) {
+    				if(sects[i].getEndTime().isBefore(sects[j].getEndTime())&&sects[i].getEndTime().isAfter(sects[j].getStartTime())) {
     					score--;
-    				}else if(sects[i].getEndTime().before(sects[j].getEndTime())&&sects[i].getEndTime().after(sects[j].getStartTime())) {
+    				}else if(sects[i].getEndTime().isBefore(sects[j].getEndTime())&&sects[i].getEndTime().isAfter(sects[j].getStartTime())) {
     					score--;
     				}else if(sects[i].getEndTime().compareTo(sects[j].getEndTime())==0 || sects[i].getEndTime().compareTo(sects[j].getStartTime())==0) {
     					score--;

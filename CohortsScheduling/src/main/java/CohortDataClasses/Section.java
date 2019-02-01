@@ -1,7 +1,7 @@
 package CohortDataClasses;
 
 import java.util.Date;
-
+import java.time.LocalTime;;
 public class Section {
 
 	private String name;
@@ -12,18 +12,48 @@ public class Section {
 	private int section;
 	private String link;
 	//start time and end time must be on the same day for ALL section objects
-	private Date   startTime;
-	private Date   endTime;
+	private LocalTime   startTime;
+	private LocalTime   endTime;
 	private String daysOfWeek;
+	private boolean[] dayBools;
 	private String instructor;
 	private String building;
 	private String room; 
-
 
 	private int    subSectionId;
 	
 	public Section() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public boolean onDay(int day) {
+		return dayBools[day];
+	}
+	
+	public void setDayBool() {
+		daysOfWeek = daysOfWeek.toUpperCase();
+		char subString;
+		dayBools = new boolean[5];
+		for(int i = 0; i < daysOfWeek.length(); i++) {
+			subString =  daysOfWeek.charAt(i);
+			switch(subString) {
+				case 'M':
+					dayBools[0] = true;
+					break;
+				case 'T':
+					dayBools[1] = true;
+					break;
+				case 'W':
+					dayBools[2] = true;
+					break;
+				case 'R':
+					dayBools[3] = true;
+					break;
+				case 'F':
+					dayBools[4] = true;
+					break;
+			}
+		}
 	}
 	
 	public String getName() {
@@ -66,19 +96,19 @@ public class Section {
 		this.sectionId = sectionId;
 	}
 
-	public Date getStartTime() {
+	public LocalTime getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Date startTime) {
+	public void setStartTime(LocalTime startTime) {
 		this.startTime = startTime;
 	}
 
-	public Date getEndTime() {
+	public LocalTime getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(LocalTime endTime) {
 		this.endTime = endTime;
 	}
 
