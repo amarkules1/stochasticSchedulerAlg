@@ -2,7 +2,6 @@ package CohortDataClasses;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +30,8 @@ public class FileReader {
 		line = scan.nextLine();
 		field = line.split(",");
 		course.setName(field[4]); 
-		section.setSectionId(field[1]);
 		section.setCrn(Integer.parseInt(field[2]));
-		section.setSection(Integer.parseInt(field[3])); 
+		section.setSectionId(field[3]);
 		section.setName(field[4]);
 		section.setLink(field[5]); 
 		section.setDaysOfWeek(field[8]);
@@ -138,9 +136,7 @@ public class FileReader {
 		tempTime2 = tempTime[0].split(":");
 		hour = Integer.parseInt(tempTime2[0]);
 		minute = Integer.parseInt(tempTime2[1]);		
-		//start time
 		section.setStartTime(LocalTime.of(hour, minute));
-		//end time
 		tempTime2 = tempTime[1].split(":");
 		hour = Integer.parseInt(tempTime2[0]);
 		minute = Integer.parseInt(tempTime2[1]); 
