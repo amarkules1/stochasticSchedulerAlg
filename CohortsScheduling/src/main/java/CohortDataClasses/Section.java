@@ -1,5 +1,6 @@
 package CohortDataClasses;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.time.LocalTime;;
 public class Section {
@@ -165,5 +166,15 @@ public class Section {
 	public void setBuilding(String building) {
 		this.building = building;
 	}
-
+	
+	public static class compareSections implements Comparator<Section>{
+		public compareSections() {}
+		@Override
+		public int compare(Section arg0, Section arg1) {
+			return arg0.getStartTime().compareTo(arg1.getStartTime());
+		}
+		
+	}
 }
+
+
