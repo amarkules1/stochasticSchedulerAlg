@@ -11,6 +11,7 @@
   </termination>
   <randomSeed>1234</randomSeed>
   <localSearch>
+  	<changeMoveSelector/>
   	<termination><!-- Solver termination -->
       <secondsSpentLimit>290</secondsSpentLimit>
   	</termination>
