@@ -18,9 +18,7 @@ public class FileReader {
 		File file = new File(fileName);
 		Scanner scan = new Scanner(file); 
 		String line;
-		
 		String[] field = new String[14];
-		
 		Course course = new Course();
 		List<Section> sections = new ArrayList<Section>();
 		Section section = new Section(); 
@@ -93,40 +91,48 @@ public class FileReader {
 		String line; 
 		String[] field = new String[7];
 		Cohort cohort = new Cohort();
-		Course[] requirements = new Course[6];
-		Course requirement = new Course();
-		int index=0;
+		List<ClassRequirement> requirements = new ArrayList<ClassRequirement>();
+		
+		ClassRequirement requirement = new ClassRequirement();
 		
 		//skip title line
 		scan.nextLine();		
 		
 		line = scan.nextLine();
 		field = line.split(",");
+		requirement.setCohortName(field[0]);
+		requirement.setClassName(field[1]);
+		requirement.setSeatsNeeded(Integer.parseInt(field[2]));
 		cohort.setName(field[0]);  
-		requirement.setName(field[0]);
-		requirements[0] = requirement;
+
+		requirements.add(requirement);
 		
 		while(scan.hasNext()) {
 			line = scan.nextLine();
 			field = line.split(",");
 			
 			if(cohort.getName().compareTo(field[0])==0) { 
-				index++; 
-				requirement.setName(field[1]);
-				requirements[index] = requirement;
+				requirement.setClassName(field[1]);
+				requirement.setSeatsNeeded(Integer.parseInt(field[2]));
+				requirements.add(requirement);
 			}
 			else {
-				index=0;
+				cohort.setRequirements(requirements);
+				cohortList.add(cohort);			
+				requirements = new ArrayList<ClassRequirement>();
 				cohort.setName(field[0]);
-				requirement.setName(field[1]); 
-				requirements[index] = requirement;				
+				requirement.setClassName(field[1]);
+				requirement.setSeatsNeeded(Integer.parseInt(field[2]));
+				requirements.add(requirement);				
 				
 			}
 		}
 		scan.close();
 		return cohortList;
 	}
-	public static  void setTimes(String[] field, Section section) {
+	
+	//method to parse and initialize start and end times
+	private static  void setTimes(String[] field, Section section) {
 		String[] tempTime = new String[2];
 		String[]tempTime2 = new String[2];
 		int hour;
