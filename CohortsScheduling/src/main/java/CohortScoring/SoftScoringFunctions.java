@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.math.*;
 import java.util.Calendar;
+import java.util.Comparator;
+
 import CohortDataClasses.Cohort;
 import CohortDataClasses.CohortSectionAssignment;
 import CohortDataClasses.Section;
@@ -16,15 +18,50 @@ public class SoftScoringFunctions {
         int score = 0;
         List<Cohort> cohorts = putAssignmentsInCohorts(s);
         score += assignmentsPastSeven(s);
-        score += backToBackToBack(cohorts);
+        score += dayScores(cohorts);
         score += moreThanThreeInADay(cohorts);
-        score += tooMuchWaitTime(cohorts);
         return score;
     }
-
-    private static int tooMuchWaitTime(List<Cohort> cohorts) {
-		// TODO Auto-generated method stub
-		return 0;
+    
+    private static int dayScores(List<Cohort> cohorts) {
+    	int score = 0;
+    	List<List<Section>> days = new ArrayList<>(5);
+		for(int i = 0; i < 5; i++) {
+			days.add(new ArrayList<Section>());
+		}
+		for(Cohort c: cohorts) {
+			for(List<Section> s: days) {
+				s.clear();
+			}
+			for(Section s: c.getClassAssignments()) {
+				if(s.onDay(0))
+					days.get(0).add(s);
+				if(s.onDay(1))
+					days.get(1).add(s);
+				if(s.onDay(2))
+					days.get(2).add(s);
+				if(s.onDay(3))
+					days.get(3).add(s);
+				if(s.onDay(4))
+					days.get(4).add(s);
+			}
+			for(List<Section> s: days) {
+				
+				s.sort(new Section.compareSections());
+			}
+			score += tooMuchWaitTime(days) + backToBackToBack(days);
+		}
+		return score;
+    }
+    
+    private static int tooMuchWaitTime(List<List<Section>> days) {
+		int score = 0;
+    	for(List<Section> L : days)
+			for(int i = 1; i<L.size() ;i++) 
+				if(L.get(i).getStartTime().isAfter(L.get(i-1).getEndTime().plusMinutes(90)))
+					score--;
+		
+		return score * score * -1;
 	}
 
 	private static int moreThanThreeInADay(List<Cohort> cohorts) {
@@ -52,12 +89,21 @@ public class SoftScoringFunctions {
 			}
 			score += (int)Math.pow(tmpScore, 1.75);
 		}
-		return score;
+		return score*-1;
 	}
+	
+	
 
-	private static int backToBackToBack(List<Cohort> cohorts) {
-		// TODO Auto-generated method stub
-		return 0;
+	private static int backToBackToBack(List<List<Section>> days) {
+		int score = 0;
+			for(List<Section> L: days) {
+				for(int i = 1; i < L.size(); i++) {
+					if(L.get(i).getStartTime().isBefore(L.get(i-1).getEndTime().minusMinutes(20)))
+							score ++;
+				}
+				score*=score*-1;
+			}
+		return score;
 	}
 
 	private static int assignmentsPastSeven(CohortSolution s) {
@@ -65,7 +111,7 @@ public class SoftScoringFunctions {
 		
 		for(CohortSectionAssignment c : s.getAssignments()) {
 			if(c.getAssignment().getStartTime().getHour()>=19)
-				count++;
+				count--;
 		}
 		return count;
 	}
