@@ -18,8 +18,8 @@ public class Main {
     		//each class requirement should have all fields initialized
     		List<Cohort> cohortList = new ArrayList<Cohort>();
 
-    		courseList = fileReader.readCEASClassFile("CEAS_Course_Offerings_Fall_2018.csv", courseList);
-    		courseList = fileReader.readCASClassFile("CAS-STEM_Course_Offerings_Fall_2018.csv", courseList);
+    		courseList = fileReader.readClassFile("CEAS_Course_Offerings_Fall_2018.csv", courseList);
+    		courseList = fileReader.readClassFile("CAS-STEM_Course_Offerings_Fall_2018.csv", courseList);
     		cohortList = fileReader.readCohortFile("cohortReqsLarge.csv", cohortList);
     		//verifies that a course exists for each ClassRequirement
     		verifyClassesExist(courseList, cohortList);
