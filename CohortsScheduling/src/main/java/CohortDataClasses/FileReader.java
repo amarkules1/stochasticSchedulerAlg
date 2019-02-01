@@ -14,7 +14,7 @@ public class FileReader {
 		 
 	}
 	
-	public List<Course> readClassFile(String fileName, List<Course> courseList) throws FileNotFoundException, ParseException{
+	public List<Course> readCEASClassFile(String fileName, List<Course> courseList) throws FileNotFoundException, ParseException{
 		File file = new File(fileName);
 		Scanner scan = new Scanner(file); 
 		String line;
@@ -53,7 +53,12 @@ public class FileReader {
 				section.setName(field[4]);
 				section.setLink(field[5]); 
 				section.setDaysOfWeek(field[8]); 
-				setTimes(field, section);			
+				try {
+				setTimes(field, section);
+				}catch(Exception e) {
+					section.setStartTime(null);
+					section.setEndTime(null);
+				}
 				section.setBuilding(field[10]);
 				section.setRoom(field[11]);
 				section.setInstructor(field[12]);
@@ -71,12 +76,101 @@ public class FileReader {
 				section.setCrn(Integer.parseInt(field[2]));
 				section.setName(field[4]);
 				section.setLink(field[5]); 
-				setTimes(field, section);
+				try {
+					setTimes(field, section);
+					}catch(Exception e) {
+						section.setStartTime(null);
+						section.setEndTime(null);
+					}
 				section.setDaysOfWeek(field[8]); 
 				section.setBuilding(field[10]);
 				section.setRoom(field[11]);
 				section.setInstructor(field[12]);
 				section.setSeats(Integer.parseInt(field[13]));
+				//make new sections list for new course object
+				sections = new ArrayList<Section>(); 	
+			}
+			
+		}
+		scan.close();
+		return courseList;
+	}
+	public List<Course> readCASClassFile(String fileName, List<Course> courseList) throws FileNotFoundException, ParseException{
+		File file = new File(fileName);
+		Scanner scan = new Scanner(file); 
+		String line;
+		String[] field = new String[14];
+		Course course = new Course();
+		List<Section> sections = new ArrayList<Section>();
+		Section section = new Section(); 
+		
+		//skip title line
+		scan.nextLine();	
+		line = scan.nextLine();
+		field = line.split(",");
+		course.setName(field[4]); 
+		section.setCrn(Integer.parseInt(field[2]));
+		section.setSectionId(field[3]);
+		section.setName(field[4]);
+		section.setLink(field[5]); 
+		section.setDaysOfWeek(field[8]);
+		setTimes(field, section);
+		section.setBuilding(field[10]);
+		section.setRoom(field[11]);
+		section.setInstructor(field[12]);
+		section.setInstructor2(field[13]);
+		section.setSeats(Integer.parseInt(field[14]));
+
+		//add initialized section to sections list
+		sections.add(section); 
+				
+		while(scan.hasNext()) {
+			line = scan.nextLine();
+			field = line.split(","); 
+			
+			//check to see if same course, if so add to sections list
+			if(course.getName().compareTo(field[0])==0) { 
+				section.setSectionId(field[3]);
+				section.setCrn(Integer.parseInt(field[2]));
+				section.setName(field[4]);
+				section.setLink(field[5]); 
+				section.setDaysOfWeek(field[8]); 
+				try {
+				setTimes(field, section);
+				}catch(Exception e) {
+					section.setStartTime(null);
+					section.setEndTime(null);
+				}
+				section.setBuilding(field[10]);
+				section.setRoom(field[11]);
+				section.setInstructor(field[12]);
+				section.setInstructor2(field[13]);
+				section.setSeats(Integer.parseInt(field[14]));
+				//add initialized section to sections list
+				sections.add(section); 
+				
+			}
+			//if not the same course, create new course and add finished course to course list
+			else { 
+				course.setSections(sections);
+				courseList.add(course);
+				course.setName((field[4]));
+				section.setSectionId(field[3]);
+				section.setCrn(Integer.parseInt(field[2]));
+				section.setName(field[4]);
+				section.setLink(field[5]); 
+				try {
+					setTimes(field, section);
+					}catch(Exception e) {
+						section.setStartTime(null);
+						section.setEndTime(null);
+					}
+				section.setDaysOfWeek(field[8]); 
+				section.setBuilding(field[10]);
+				section.setRoom(field[11]);
+				section.setInstructor(field[12]);
+				section.setInstructor2(field[13]);
+				section.setSeats(Integer.parseInt(field[14]));
 				//make new sections list for new course object
 				sections = new ArrayList<Section>(); 	
 			}
