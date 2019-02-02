@@ -76,14 +76,12 @@ public class Main {
 				if(courseIndex<0) {
 					throw new Exception("Missing Course Object for "+req.getClassName());
 				}
-				int ct = req.getSeatsNeeded()/courses.get(courseIndex).getUnitSize();
-				for(int i = 0; i < ct; i++) {
-					CohortSectionAssignment toAdd = new CohortSectionAssignment();
-					toAdd.setMyCohort(coh);
-					toAdd.setMyCourse(courses.get(courseIndex));
-					toAdd.setSectionCode(req.getSectionsAllowed());
-					toAdd.setSeatsNeeded(req.getSeatsNeeded());
-				}
+				CohortSectionAssignment toAdd = new CohortSectionAssignment();
+				toAdd.setMyCohort(coh);
+				toAdd.setMyCourse(courses.get(courseIndex));
+				toAdd.setSectionCode(req.getSectionsAllowed());
+				toAdd.setSeatsNeeded(req.getSeatsNeeded());
+				csa.add(toAdd);
 			}
 		}
 		for(int i = 0; i < count; i++) {
