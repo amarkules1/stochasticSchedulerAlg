@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solver>
   <scanAnnotatedClasses/>
-  <scoreDirectorFactory>
-    <scoreDefinitionType>HARD_SOFT</scoreDefinitionType>
-    <easyScoreCalculatorClass>CohortScoring.cohortScoring</easyScoreCalculatorClass>
-  </scoreDirectorFactory>
 
   <termination>
     <secondsSpentLimit>300</secondsSpentLimit>
