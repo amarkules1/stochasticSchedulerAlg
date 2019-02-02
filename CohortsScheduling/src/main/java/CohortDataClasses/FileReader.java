@@ -29,6 +29,7 @@ public class FileReader {
 		field = line.split(",");
 		course.setName(field[1]); 
 		course.setCourseID(field[1]);
+		course.setUnitSize(Integer.parseInt(field[13]));
 		section.setCrn(Integer.parseInt(field[2]));
 		section.setSectionId(field[3]);
 		section.setName(field[4]);
@@ -82,6 +83,7 @@ public class FileReader {
 				section = new Section();
 				sections = new ArrayList<Section>();
 				course.setName((field[1]));
+				course.setUnitSize(Integer.parseInt(field[13]));
 				section.setSectionId(field[3]);
 				section.setCrn(Integer.parseInt(field[2]));
 				section.setName(field[4]);
