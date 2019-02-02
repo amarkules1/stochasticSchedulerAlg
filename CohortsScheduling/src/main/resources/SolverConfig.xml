@@ -2,7 +2,6 @@
 <solver>
   <scanAnnotatedClasses/>
   <scoreDirectorFactory>
-    <scoreDefinitionType>HARD_SOFT</scoreDefinitionType>
     <easyScoreCalculatorClass>CohortScoring.cohortScoring</easyScoreCalculatorClass>
   </scoreDirectorFactory>
 

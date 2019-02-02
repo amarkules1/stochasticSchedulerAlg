@@ -66,6 +66,7 @@ public class Main {
 		CohortSolution[] problems = new CohortSolution[count];
 		List<CohortSectionAssignment> csa = new ArrayList<>();
 		for(Cohort coh:cohorts) {
+			//Finds the course for every requirement
 			for(ClassRequirement req: coh.getRequirements()) {
 				int courseIndex = -1;
 				for(Course course: courses) {
