@@ -8,7 +8,8 @@ import java.util.List;
 public class Course implements Serializable {
 	
 	private List<Section> sections;
-	private String name; 
+	private String name;
+	private String courseID;
 	private int    unitSize;
 	
 	public Course() {
@@ -38,5 +39,14 @@ public class Course implements Serializable {
 	public void setUnitSize(int unitSize) {
 		this.unitSize = unitSize;
 	}
+	
+	public String getCourseID() {
+		return courseID;
+	}
+
+	public void setCourseID(String courseID) {
+		this.courseID = courseID;
+	}
+
 
 }

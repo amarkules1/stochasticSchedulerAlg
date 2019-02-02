@@ -1,10 +1,9 @@
 package CohortDataClasses;
 
 import java.util.Comparator;
-import java.util.Date;
 import java.time.LocalTime;;
 public class Section {
-
+	
 	private String name;
 	private int    seats; 
 	private int    crn; 
@@ -18,6 +17,7 @@ public class Section {
 	private String daysOfWeek;
 	private boolean[] dayBools;
 	private String instructor;
+	private String instructor2;
 	private String building;
 	private String room; 
 
@@ -57,6 +57,14 @@ public class Section {
 		}
 	}
 	
+	public String getInstructor2() {
+		return instructor2;
+	}
+
+	public void setInstructor2(String instructor2) {
+		this.instructor2 = instructor2;
+	}
+
 	public String getName() {
 		return name;
 	}

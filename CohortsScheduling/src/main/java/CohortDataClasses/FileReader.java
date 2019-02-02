@@ -14,7 +14,7 @@ public class FileReader {
 		 
 	}
 	
-	public List<Course> readClassFile(String fileName, List<Course> courseList) throws FileNotFoundException, ParseException{
+	public static void readClassFile(String fileName, List<Course> courseList) throws FileNotFoundException, ParseException{
 		File file = new File(fileName);
 		Scanner scan = new Scanner(file); 
 		String line;
@@ -27,7 +27,9 @@ public class FileReader {
 		scan.nextLine();	
 		line = scan.nextLine();
 		field = line.split(",");
-		course.setName(field[4]); 
+		course.setName(field[1]); 
+		course.setCourseID(field[1]);
+		course.setUnitSize(Integer.parseInt(field[13]));
 		section.setCrn(Integer.parseInt(field[2]));
 		section.setSectionId(field[3]);
 		section.setName(field[4]);
@@ -38,6 +40,7 @@ public class FileReader {
 		section.setRoom(field[11]);
 		section.setInstructor(field[12]);
 		section.setSeats(Integer.parseInt(field[13]));
+		
 
 		//add initialized section to sections list
 		sections.add(section); 
@@ -45,47 +48,70 @@ public class FileReader {
 		while(scan.hasNext()) {
 			line = scan.nextLine();
 			field = line.split(","); 
-			
+		
 			//check to see if same course, if so add to sections list
-			if(course.getName().compareTo(field[0])==0) { 
+			if(course.getName().compareTo(field[4])==0) {  
+				section = new Section();
 				section.setSectionId(field[3]);
 				section.setCrn(Integer.parseInt(field[2]));
-				section.setName(field[4]);
+				section.setName(field[1]);
 				section.setLink(field[5]); 
 				section.setDaysOfWeek(field[8]); 
-				setTimes(field, section);			
+				try {
+				setTimes(field, section);
+				}catch(Exception e) {
+					section.setStartTime(null);
+					section.setEndTime(null);
+				}
 				section.setBuilding(field[10]);
 				section.setRoom(field[11]);
 				section.setInstructor(field[12]);
 				section.setSeats(Integer.parseInt(field[13]));
 				//add initialized section to sections list
+				
 				sections.add(section); 
 				
 			}
 			//if not the same course, create new course and add finished course to course list
 			else { 
-				course.setSections(sections);
+				//finish and set course since we have arrived at a new course
+				course.setSections(sections); 
+				
+				//add finished course to list
 				courseList.add(course);
-				course.setName((field[4]));
+				course = new Course();
+				section = new Section();
+				sections = new ArrayList<Section>();
+				course.setName((field[1]));
+				course.setUnitSize(Integer.parseInt(field[13]));
 				section.setSectionId(field[3]);
 				section.setCrn(Integer.parseInt(field[2]));
 				section.setName(field[4]);
 				section.setLink(field[5]); 
-				setTimes(field, section);
+				try {
+					setTimes(field, section);
+					}catch(Exception e) {
+						section.setStartTime(null);
+						section.setEndTime(null);
+					}
 				section.setDaysOfWeek(field[8]); 
 				section.setBuilding(field[10]);
 				section.setRoom(field[11]);
 				section.setInstructor(field[12]);
 				section.setSeats(Integer.parseInt(field[13]));
-				//make new sections list for new course object
-				sections = new ArrayList<Section>(); 	
+				sections.add(section);
+				
+					
 			}
 			
 		}
-		scan.close();
-		return courseList;
+		scan.close(); 
+
+		
 	}
-	public List<Cohort> readCohortFile(String fileName, List<Cohort> cohortList) throws FileNotFoundException{
+	
+	
+	public static void readCohortFile(String fileName, List<Cohort> cohortList) throws FileNotFoundException{
 		File file  = new File(fileName);
 		Scanner scan = new Scanner(file);
 		String line; 
@@ -128,7 +154,7 @@ public class FileReader {
 			}
 		}
 		scan.close();
-		return cohortList;
+		
 	}
 	
 	//method to parse and initialize start and end times
@@ -148,4 +174,6 @@ public class FileReader {
 		minute = Integer.parseInt(tempTime2[1]); 
 		section.setEndTime(LocalTime.of(hour, minute));
 	}
+	
+	
 }

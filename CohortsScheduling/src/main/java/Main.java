@@ -10,16 +10,18 @@ public class Main {
     public static void main(String args[])
     {
     	try {
-    		FileReader fileReader = new FileReader();
+    	
     		//each course object should have a non empty list of sections and a name
     		//each section object should have all fields initialized
     		List<Course> courseList = new ArrayList<Course>(); 
     		//each cohort object should have a name and non-empty list of ClassRequirements
     		//each class requirement should have all fields initialized
     		List<Cohort> cohortList = new ArrayList<Cohort>();
-
-    		courseList = fileReader.readClassFile("fileName", courseList); 
-    		cohortList = fileReader.readCohortFile("fileName", cohortList);
+    		
+    		FileReader.readClassFile("CEAS_Course_Offerings_Fall_2018.csv", courseList);
+    		FileReader.readClassFile("CAS-STEM_Course_Offerings_Fall_2018.csv", courseList);
+    		FileReader.readCohortFile("cohortReqsLarge.csv", cohortList);
+    		
     		//verifies that a course exists for each ClassRequirement
     		verifyClassesExist(courseList, cohortList);
     		//Alex Write init function
