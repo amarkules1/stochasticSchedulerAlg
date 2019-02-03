@@ -16,7 +16,7 @@ public class HardScoringFunctions {
         int score = 0;
         List<Cohort> cohorts = putAssignmentsInCohorts(solution);
         for(Cohort s:cohorts) {
-        	Section[] sects = (Section[])s.getClassAssignments().toArray();
+        	Section[] sects = s.getClassAssignments().toArray(new Section[1]);
         	score += classConflictsForCohort(sects);
         }
         List<Course> courses = addEnrollmentsToCourses(solution);
