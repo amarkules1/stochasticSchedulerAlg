@@ -22,6 +22,11 @@ public class Main {
     		FileReader.readClassFile("CAS-STEM_Course_Offerings_Fall_2018.csv", courseList);
     		FileReader.readCohortFile("cohortReqsLarge.csv", cohortList);
     		
+    		for(Course c:courseList) {
+    			for(Section s:c.getSections())
+    				s.setDayBool();
+    		}
+    		
     		//verifies that a course exists for each ClassRequirement
     		verifyClassesExist(courseList, cohortList);
     		//Alex Write init function
@@ -30,9 +35,9 @@ public class Main {
     		SolverFactory<CohortSolution> factory = SolverFactory.createFromXmlResource("SolverConfig.xml");
     		Solver<CohortSolution> solver = factory.buildSolver();
     		for(int i = 0; i<20 ;i++){
-    			CohortSolution BestSolution = new CohortSolution();
-    			BestSolution = (CohortSolution)solver.solve(BestSolution);
-    			solutions[i] = BestSolution;
+    			
+    			solutions[i] = (CohortSolution)solver.solve(solutions[i]);
+    			
     		}
     	}catch(Exception e) {
     		e.printStackTrace();
