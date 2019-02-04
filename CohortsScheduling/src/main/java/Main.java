@@ -34,7 +34,7 @@ public class Main {
     		System.out.println(solutions[0].getAssignments().size());
     		SolverFactory<CohortSolution> factory = SolverFactory.createFromXmlResource("SolverConfig.xml");
     		Solver<CohortSolution> solver = factory.buildSolver();
-    		for(int i = 0; i<20 ;i++){
+    		for(int i = 0; i<1 ;i++){
     			
     			solutions[i] = (CohortSolution)solver.solve(solutions[i]);
     			
@@ -98,7 +98,7 @@ public class Main {
 	}
 
 	private static CohortSolution initProblem(int i, List<CohortSectionAssignment> csa, List<Course> courses) {
-		int j = i-1;
+		int j = i;
 		for(CohortSectionAssignment c:csa) {
 			c.setAssignment(c.possibleSections().get(j%c.possibleSections().size()));
 			j++;

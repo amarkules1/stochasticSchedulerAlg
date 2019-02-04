@@ -16,7 +16,7 @@ public class HardScoringFunctions {
         int score = 0;
         List<Cohort> cohorts = putAssignmentsInCohorts(solution);
         for(Cohort s:cohorts) {
-        	Section[] sects = s.getClassAssignments().toArray(new Section[1]);
+        	Section[] sects = s.getClassAssignments().toArray(new Section[10]);
         	score += classConflictsForCohort(sects);
         }
         List<Course> courses = addEnrollmentsToCourses(solution);
@@ -103,6 +103,7 @@ public class HardScoringFunctions {
 	private static List<Cohort> putAssignmentsInCohorts(CohortSolution solution) {
 		Map<String,List<Section>> sectMap = new HashMap<>();
 		for(CohortSectionAssignment csa: solution.getAssignments()) {
+			System.out.println(csa.getMyCohort().getName());
 			if(sectMap.containsKey(csa.getMyCohort().getName())) {
 				List<Section> temp = sectMap.get(csa.getMyCohort().getName());
 				temp.add(csa.getAssignment());
@@ -118,6 +119,7 @@ public class HardScoringFunctions {
 		for(String name:cohortNames) {
 			Cohort coh = new Cohort();
 			coh.setName(name);
+			System.out.println(sectMap.get(name));
 			coh.setClassAssignments(sectMap.get(name));
 			cohorts.add(coh);
 		}
@@ -131,7 +133,7 @@ public class HardScoringFunctions {
     	
     	for(int i = 0; i < sects.length;i++) {
     		for(int j = (1+i); j < sects.length;j++) {
-    			if(sameDay(sects[i].getDaysOfWeek(),sects[j].getDaysOfWeek())) {
+    			if(sects[i] !=null && sects[j] !=null && sameDay(sects[i].getDaysOfWeek(),sects[j].getDaysOfWeek())) {
     				if(sects[i].getEndTime().isBefore(sects[j].getEndTime())&&sects[i].getEndTime().isAfter(sects[j].getStartTime())) {
     					score--;
     				}else if(sects[i].getEndTime().isBefore(sects[j].getEndTime())&&sects[i].getEndTime().isAfter(sects[j].getStartTime())) {
