@@ -101,6 +101,7 @@ public class Main {
 		int j = i;
 		for(CohortSectionAssignment c:csa) {
 			c.setAssignment(c.possibleSections().get(j%c.possibleSections().size()));
+			System.out.println("Adding sect "+c.getAssignment().getName());
 			j++;
 		}
 		CohortSolution sol = new CohortSolution();

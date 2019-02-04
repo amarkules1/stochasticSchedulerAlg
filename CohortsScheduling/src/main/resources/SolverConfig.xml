@@ -5,7 +5,7 @@
     	<easyScoreCalculatorClass>CohortScoring.cohortScoring</easyScoreCalculatorClass>
   	</scoreDirectorFactory>
   <termination>
-    <secondsSpentLimit>300</secondsSpentLimit>
+    <secondsSpentLimit>30</secondsSpentLimit>
   </termination>
   <randomSeed>1234</randomSeed>
   <localSearch>

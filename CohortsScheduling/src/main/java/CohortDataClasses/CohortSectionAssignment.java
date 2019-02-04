@@ -38,7 +38,7 @@ public class CohortSectionAssignment {
 	public void setMyCohort(Cohort myCohort) {
 		this.myCohort = myCohort;
 	}
-	@PlanningVariable(valueRangeProviderRefs = {"courseSection"}, nullable = true)
+	@PlanningVariable(valueRangeProviderRefs = {"courseSection"}, nullable = false)
 	public Section getAssignment() {
 		return assignment;
 	}
@@ -57,13 +57,7 @@ public class CohortSectionAssignment {
 	//this is how optaPlanner knows what sections work for this assignment
 	@ValueRangeProvider(id = "courseSection")
 	public List<Section> possibleSections(){
-		List<Section> viable = new ArrayList<>();
-		for(Section sect : this.myCourse.getSections()) {
-			if(startsWith(sect.getSectionId(),this.sectionCode)) {
-				viable.add(sect);
-			}
-		}
-		return viable;
+		return this.myCourse.getSections();
 	}
 	
 	public static boolean startsWith(String sect, String code) {
