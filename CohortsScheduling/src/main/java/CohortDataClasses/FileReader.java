@@ -144,7 +144,8 @@ public class FileReader {
 			}
 			else {
 				cohort.setRequirements(requirements);
-				cohortList.add(cohort);			
+				cohortList.add(cohort);		
+				cohort = new Cohort();
 				requirements = new ArrayList<ClassRequirement>();
 				cohort.setName(field[0]);
 				requirement.setClassName(field[1]);
