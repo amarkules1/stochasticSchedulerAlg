@@ -6,7 +6,6 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import java.util.ArrayList;
 import java.util.List;
 
-@PlanningEntity
 public class Cohort {
 	
 	private List<ClassRequirement> requirements;
