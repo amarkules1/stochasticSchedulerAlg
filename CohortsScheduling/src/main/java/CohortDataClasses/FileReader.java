@@ -86,7 +86,7 @@ public class FileReader {
 				course.setUnitSize(Integer.parseInt(field[13]));
 				section.setSectionId(field[3]);
 				section.setCrn(Integer.parseInt(field[2]));
-				section.setName(field[4]);
+				section.setName(field[1]);
 				section.setLink(field[5]); 
 				try {
 					setTimes(field, section);

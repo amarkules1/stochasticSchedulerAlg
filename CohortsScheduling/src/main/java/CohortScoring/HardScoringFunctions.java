@@ -103,7 +103,6 @@ public class HardScoringFunctions {
 	private static List<Cohort> putAssignmentsInCohorts(CohortSolution solution) {
 		Map<String,List<Section>> sectMap = new HashMap<>();
 		for(CohortSectionAssignment csa: solution.getAssignments()) {
-			System.out.println(csa.getMyCohort().getName());
 			if(sectMap.containsKey(csa.getMyCohort().getName())) {
 				List<Section> temp = sectMap.get(csa.getMyCohort().getName());
 				temp.add(csa.getAssignment());
@@ -119,7 +118,6 @@ public class HardScoringFunctions {
 		for(String name:cohortNames) {
 			Cohort coh = new Cohort();
 			coh.setName(name);
-			System.out.println(sectMap.get(name));
 			coh.setClassAssignments(sectMap.get(name));
 			cohorts.add(coh);
 		}
