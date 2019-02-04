@@ -32,7 +32,7 @@ public class FileReader {
 		course.setUnitSize(Integer.parseInt(field[13]));
 		section.setCrn(Integer.parseInt(field[2]));
 		section.setSectionId(field[3]);
-		section.setName(field[4]);
+		section.setName(field[1]);
 		section.setLink(field[5]); 
 		section.setDaysOfWeek(field[8]);
 		setTimes(field, section);
@@ -50,7 +50,7 @@ public class FileReader {
 			field = line.split(","); 
 		
 			//check to see if same course, if so add to sections list
-			if(course.getName().compareTo(field[4])==0) {  
+			if(course.getName().compareTo(field[1])==0) {  
 				section = new Section();
 				section.setSectionId(field[3]);
 				section.setCrn(Integer.parseInt(field[2]));
