@@ -54,7 +54,7 @@ public class FileReader {
 				section = new Section();
 				section.setSectionId(field[3]);
 				section.setCrn(Integer.parseInt(field[2]));
-				section.setName(field[4]);
+				section.setName(field[1]);
 				section.setLink(field[5]); 
 				section.setDaysOfWeek(field[8]); 
 				try {
