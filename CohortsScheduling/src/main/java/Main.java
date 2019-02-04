@@ -31,7 +31,7 @@ public class Main {
     		verifyClassesExist(courseList, cohortList);
     		//Alex Write init function
     		CohortSolution solutions[] = initializeSolution(20, cohortList, courseList);
-
+    		System.out.println(solutions[0].getAssignments().size());
     		SolverFactory<CohortSolution> factory = SolverFactory.createFromXmlResource("SolverConfig.xml");
     		Solver<CohortSolution> solver = factory.buildSolver();
     		for(int i = 0; i<20 ;i++){

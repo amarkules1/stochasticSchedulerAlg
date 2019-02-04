@@ -8,12 +8,18 @@ import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
+import java.util.ArrayList;
 import java.util.List;
 @PlanningSolution
 public class CohortSolution {
     private List<CohortSectionAssignment> assignments;
     private List<Course> courses;
     private HardSoftScore score;
+    
+    public CohortSolution() {
+    	this.assignments = new ArrayList<>();
+    	this.courses = new ArrayList<>();
+    }
 
     @PlanningScore
     public HardSoftScore getScore(){
