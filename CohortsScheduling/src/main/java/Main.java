@@ -3,6 +3,7 @@ import CohortsSolverData.CohortSolution;
 import CohortDataClasses.*;
 import java.io.FileNotFoundException;
 import java.util.*;
+import CohortScoring.cohortScoring;
 public class Main {
 	
     public static void main(String args[])
@@ -29,10 +30,11 @@ public class Main {
     		//recordSolutions(solutions);
     		SolverFactory<CohortSolution> factory = SolverFactory.createFromXmlResource("SolverConfig.xml");
     		Solver<CohortSolution> solver = factory.buildSolver();
+    		cohortScoring score = new cohortScoring();
     		for(int i = 0; i<1 ;i++){
-    			
+    			System.out.println("Before: " + score.calculateScore(solutions[i]));
     			solutions[i] = (CohortSolution)solver.solve(solutions[i]);
-    			
+    			System.out.println("After: " + score.calculateScore(solutions[i]));
     		}
     		recordSolutions(solutions);
     	}catch(Exception e) {
