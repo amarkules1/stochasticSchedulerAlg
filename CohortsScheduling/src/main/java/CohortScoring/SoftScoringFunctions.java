@@ -110,7 +110,7 @@ public class SoftScoringFunctions {
 		int count = 0;
 		
 		for(CohortSectionAssignment c : s.getAssignments()) {
-			if(c.getAssignment().getStartTime().getHour()>=19)
+			if(c.getAssignment().getStartTime()==null||c.getAssignment().getStartTime().getHour()>=19)
 				count--;
 		}
 		return count;

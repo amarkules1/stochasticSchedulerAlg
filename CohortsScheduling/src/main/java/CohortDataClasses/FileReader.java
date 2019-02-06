@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class FileReader {
@@ -111,12 +113,11 @@ public class FileReader {
 	}
 	
 	
-	public static void readCohortFile(String fileName, List<Cohort> cohortList) throws FileNotFoundException{
+	public static List<Cohort> readCohortFile(String fileName) throws FileNotFoundException{
 		File file  = new File(fileName);
 		Scanner scan = new Scanner(file);
 		String line; 
 		String[] field = new String[7];
-		Cohort cohort = new Cohort();
 		List<ClassRequirement> requirements = new ArrayList<ClassRequirement>();
 		
 		ClassRequirement requirement = new ClassRequirement();
@@ -128,36 +129,48 @@ public class FileReader {
 		field = line.split(",");
 		requirement.setCohortName(field[0]);
 		requirement.setClassName(field[1]);
+		requirement.setSectionsAllowed(field[3]);
 		requirement.setSeatsNeeded(Integer.parseInt(field[2]));
-		cohort.setName(field[0]);  
 
 		requirements.add(requirement);
 		
 		while(scan.hasNext()) {
+			ClassRequirement newReq = new ClassRequirement();
 			line = scan.nextLine();
 			field = line.split(",");
-			
-			if(cohort.getName().compareTo(field[0])==0) { 
-				requirement.setClassName(field[1]);
-				requirement.setSeatsNeeded(Integer.parseInt(field[2]));
-				requirements.add(requirement);
-			}
-			else {
-				cohort.setRequirements(requirements);
-				cohortList.add(cohort);		
-				cohort = new Cohort();
-				requirements = new ArrayList<ClassRequirement>();
-				cohort.setName(field[0]);
-				requirement.setClassName(field[1]);
-				requirement.setSeatsNeeded(Integer.parseInt(field[2]));
-				requirements.add(requirement);				
-				
-			}
+			newReq.setClassName(field[1]);
+			newReq.setCohortName(field[0]);
+			newReq.setSeatsNeeded(Integer.parseInt(field[2]));
+			newReq.setSectionsAllowed(field[3]);		
+			requirements.add(newReq);
 		}
 		scan.close();
-		
+		return separateReqsIntoCohorts(requirements);
 	}
 	
+	private static List<Cohort> separateReqsIntoCohorts(List<ClassRequirement> requirements) {
+		List<Cohort> cohorts = new ArrayList<>();
+		Map<String, List<ClassRequirement>> mapping = new HashMap<>();
+		for(ClassRequirement req : requirements) {
+			if(mapping.containsKey(req.getCohortName())) {
+				List<ClassRequirement> temp = mapping.get(req.getCohortName());
+				temp.add(req);
+				mapping.put(req.getCohortName(), temp);
+			}else {
+				List<ClassRequirement> temp = new ArrayList<>();
+				temp.add(req);
+				mapping.put(req.getCohortName(), temp);
+			}
+		}
+		for(String cName : mapping.keySet()) {
+			Cohort cohort = new Cohort();
+			cohort.setRequirements(mapping.get(cName));
+			cohort.setName(cName);
+			cohorts.add(cohort);
+		}
+		return cohorts;
+	}
+
 	//method to parse and initialize start and end times
 	private static  void setTimes(String[] field, Section section) {
 		String[] tempTime = new String[2];

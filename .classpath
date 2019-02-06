@@ -25,5 +25,14 @@
 	<classpathentry kind="src" path="optaplanner/optaplanner-test/src/main/java"/>
 	<classpathentry kind="src" path="optaplanner/optaplanner-webexamples/src/main/java"/>
 	<classpathentry kind="src" path="optaplanner/optaplanner-webexamples/src/test/java"/>
+	<classpathentry kind="lib" path="C:/Users/amarl/.m2/repository/org/optaplanner/optaplanner-core/7.16.0.Final/optaplanner-core-7.16.0.Final.jar" sourcepath="C:/Users/amarl/.m2/repository/org/optaplanner/optaplanner-core/7.16.0.Final/optaplanner-core-7.16.0.Final-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.optaplanner"/>
+			<attribute name="maven.artifactId" value="optaplanner-core"/>
+			<attribute name="maven.version" value="7.16.0.Final"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="CohortSchedulin/bin"/>
 </classpath>

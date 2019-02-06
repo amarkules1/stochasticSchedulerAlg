@@ -1,5 +1,3 @@
-import java.util.List;
-
 import org.optaplanner.core.api.solver.*;
 import CohortsSolverData.CohortSolution; 
 import CohortDataClasses.*;
@@ -14,13 +12,10 @@ public class Main {
     		//each course object should have a non empty list of sections and a name
     		//each section object should have all fields initialized
     		List<Course> courseList = new ArrayList<Course>(); 
-    		//each cohort object should have a name and non-empty list of ClassRequirements
-    		//each class requirement should have all fields initialized
-    		List<Cohort> cohortList = new ArrayList<Cohort>();
     		
     		FileReader.readClassFile("CEAS_Course_Offerings_Fall_2018.csv", courseList);
     		FileReader.readClassFile("CAS-STEM_Course_Offerings_Fall_2018.csv", courseList);
-    		FileReader.readCohortFile("cohortReqsLarge.csv", cohortList);
+    		List<Cohort> cohortList = FileReader.readCohortFile("cohortReqsLarge.csv");
     		
     		for(Course c:courseList) {
     			for(Section s:c.getSections())
@@ -30,8 +25,8 @@ public class Main {
     		//verifies that a course exists for each ClassRequirement
     		verifyClassesExist(courseList, cohortList);
     		//Alex Write init function
-    		CohortSolution solutions[] = initializeSolution(20, cohortList, courseList);
-    		System.out.println(solutions[0].getAssignments().size());
+    		CohortSolution solutions[] = initializeSolution(1, cohortList, courseList);
+    		//recordSolutions(solutions);
     		SolverFactory<CohortSolution> factory = SolverFactory.createFromXmlResource("SolverConfig.xml");
     		Solver<CohortSolution> solver = factory.buildSolver();
     		for(int i = 0; i<1 ;i++){
@@ -39,6 +34,7 @@ public class Main {
     			solutions[i] = (CohortSolution)solver.solve(solutions[i]);
     			
     		}
+    		recordSolutions(solutions);
     	}catch(Exception e) {
     		e.printStackTrace();
     	}
@@ -46,6 +42,33 @@ public class Main {
     	
     	
     }
+
+	private static void recordSolutions(CohortSolution[] solutions) {
+		for(CohortSolution s: solutions) {
+			System.out.println(s.getAssignments().get(0).getAssignment().getName());
+			System.out.println("\nSolution");
+			List<Cohort> cohorts = putAssignmentsInCohorts(s);
+			for(Cohort c: cohorts) {
+				System.out.println("Cohort "+c.getName()+" classes:");
+				for(Section sect:c.getClassAssignments()) {
+					if(sect.getStartTime()!=null) {
+						System.out.println("Class: "+sect.getName()
+						+" Section: "+sect.getSectionId()
+						+" Days: "+sect.getDaysOfWeek()
+						+" Time: "+ sect.getStartTime().toString()
+						+" - "+sect.getEndTime().toString());
+					}else {
+						System.out.println("Class: "+sect.getName()
+						+" Section: "+sect.getSectionId()
+						+" Days: "+sect.getDaysOfWeek()
+						+" ONLINE");
+					}
+						
+				}
+			}
+		}
+		
+	}
 
 	private static void verifyClassesExist(List<Course> courseList, List<Cohort> cohortList) throws Exception {
 		// TODO create SchedulingException class
@@ -101,12 +124,35 @@ public class Main {
 		int j = i;
 		for(CohortSectionAssignment c:csa) {
 			c.setAssignment(c.possibleSections().get(j%c.possibleSections().size()));
-			System.out.println("Adding sect "+c.getAssignment().getName());
 			j++;
 		}
 		CohortSolution sol = new CohortSolution();
 		sol.setAssignments(csa);
 		sol.setCourses(courses);
 		return sol;
+	}
+	
+	private static List<Cohort> putAssignmentsInCohorts(CohortSolution solution) {
+		Map<String,List<Section>> sectMap = new HashMap<>();
+		for(CohortSectionAssignment csa: solution.getAssignments()) {
+			if(sectMap.containsKey(csa.getMyCohort().getName())) {
+				List<Section> temp = sectMap.get(csa.getMyCohort().getName());
+				temp.add(csa.getAssignment());
+				sectMap.put(csa.getMyCohort().getName(),temp);
+			}else {
+				List<Section> temp = new ArrayList<>();
+				temp.add(csa.getAssignment());
+				sectMap.put(csa.getMyCohort().getName(), temp);
+			}
+		}
+		List<String> cohortNames = new ArrayList<String>(sectMap.keySet());
+		List<Cohort> cohorts = new ArrayList<>();
+		for(String name:cohortNames) {
+			Cohort coh = new Cohort();
+			coh.setName(name);
+			coh.setClassAssignments(sectMap.get(name));
+			cohorts.add(coh);
+		}
+		return cohorts;
 	}
 }
