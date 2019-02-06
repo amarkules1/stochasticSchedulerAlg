@@ -29,7 +29,7 @@ public class HardScoringFunctions {
 		for(Course course:courses) {
 			for(Section s : course.getSections()) {
 				if(s.getEnrolled()>s.getSeats()) {
-					score += (s.getEnrolled() - s.getSeats())/5;
+					score -= (s.getEnrolled() - s.getSeats())/5;
 				}
 			}
 		}
