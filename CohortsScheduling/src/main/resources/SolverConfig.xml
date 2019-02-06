@@ -7,14 +7,14 @@
   <termination>
     <secondsSpentLimit>30</secondsSpentLimit>
   </termination>
-  <randomSeed>1234</randomSeed>
+  <randomSeed>12</randomSeed>
   <localSearch>
   	<changeMoveSelector/>
   	<termination><!-- Solver termination -->
       <secondsSpentLimit>290</secondsSpentLimit>
   	</termination>
   	<acceptor>
-  		<simulatedAnnealingStartingTemperature>20hard/100soft</simulatedAnnealingStartingTemperature>
+  		<simulatedAnnealingStartingTemperature>5hard/30soft</simulatedAnnealingStartingTemperature>
   	</acceptor>
   	<forager>
   		<acceptedCountLimit>4</acceptedCountLimit>
