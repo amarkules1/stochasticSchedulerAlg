@@ -4,6 +4,17 @@ import CohortDataClasses.*;
 import java.io.FileNotFoundException;
 import java.util.*;
 import CohortScoring.cohortScoring;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+
 public class Main {
 	
     public static void main(String args[])
@@ -156,5 +167,22 @@ public class Main {
 			cohorts.add(coh);
 		}
 		return cohorts;
+	}
+	
+	public static void addSolutionToDB(CohortSolution s) throws Exception {
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		try {
+			for(CohortSectionAssignment csa: s.getAssignments()) {
+				HttpPost post = new HttpPost("localhost:3000/assignment");
+				List<NameValuePair> params = new ArrayList<>();
+				//add params to list
+				CloseableHttpResponse response = httpclient.execute(post);
+				assert(response.getStatusLine().getStatusCode()==(200));
+			    
+			}
+			httpclient.close();
+		}finally {
+			httpclient.close();
+		}
 	}
 }
