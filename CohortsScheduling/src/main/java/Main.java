@@ -14,8 +14,8 @@ public class Main {
     		//each section object should have all fields initialized
     		List<Course> courseList = new ArrayList<Course>(); 
     		
-    		FileReader.readCourseExcel("CEAS_Course_Offerings_Fall_2018.csv", courseList);
-    		FileReader.readCourseExcel("CAS-STEM_Course_Offerings_Fall_2018.csv", courseList);
+    		FileReader.readClassFile("CEAS_Course_Offerings_Fall_2018.csv", courseList);
+    		FileReader.readClassFile("CAS-STEM_Course_Offerings_Fall_2018.csv", courseList);
     		List<Cohort> cohortList = FileReader.readCohortFile("cohortReqsLarge.csv");
     		
     		for(Course c:courseList) {
