@@ -5,19 +5,19 @@
     	<easyScoreCalculatorClass>CohortScoring.cohortScoring</easyScoreCalculatorClass>
   	</scoreDirectorFactory>
   <termination>
-    <secondsSpentLimit>30</secondsSpentLimit>
+    <secondsSpentLimit>120</secondsSpentLimit>
   </termination>
   <randomSeed>12</randomSeed>
   <localSearch>
   	<changeMoveSelector/>
   	<termination><!-- Solver termination -->
-      <secondsSpentLimit>290</secondsSpentLimit>
+      <secondsSpentLimit>120</secondsSpentLimit>
   	</termination>
   	<acceptor>
-  		<simulatedAnnealingStartingTemperature>5hard/30soft</simulatedAnnealingStartingTemperature>
+  		<simulatedAnnealingStartingTemperature>4hard/20soft</simulatedAnnealingStartingTemperature>
   	</acceptor>
   	<forager>
-  		<acceptedCountLimit>4</acceptedCountLimit>
+  		<acceptedCountLimit>3</acceptedCountLimit>
   	</forager>
   </localSearch>
   
